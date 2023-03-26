@@ -34,15 +34,26 @@ gallery.addEventListener('click', event => {
   }
 
   const selectedImage = event.target.getAttribute('data-source');
-  const instance = basicLightbox.create(`
+  const instance = basicLightbox.create(
+    `
     <img src="${selectedImage}" width="800" height="600">
-`);
+`,
+    {
+      onShow: instance => {
+        gallery.addEventListener('keydown', galleryEscape);
+      },
+      onClose: instance => {
+        gallery.removeEventListener('keydown', galleryEscape);
+      },
+    }
+  );
 
   instance.show();
 
-  gallery.addEventListener('keydown', event => {
+  function galleryEscape(event) {
     if (event.key === 'Escape') {
+      console.log('Listener');
       instance.close();
     }
-  });
+  }
 });
