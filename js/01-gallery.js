@@ -52,7 +52,6 @@ gallery.addEventListener('click', event => {
 
   function galleryEscape(event) {
     if (event.key === 'Escape') {
-      console.log('Listener');
       instance.close();
     }
   }
